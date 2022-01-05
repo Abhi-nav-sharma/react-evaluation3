@@ -1,4 +1,4 @@
-import { CHANGE_PAGE, GET_DATA_FAILURE, GET_DATA_REQUEST, GET_DATA_SUCCESS } from "./actionTypes";
+import { CHANGE_PAGE, CHANGE_LIMIT, GET_DATA_FAILURE, GET_DATA_REQUEST, GET_DATA_SUCCESS } from "./actionTypes";
 
 const initState = {
     data: [],
@@ -30,6 +30,12 @@ const initState = {
           case CHANGE_PAGE:{
               return{
                   ...state,pageNo:action.payload.page
+              }
+          }
+
+          case CHANGE_LIMIT:{
+              return{
+                ...state,perPage:action.payload.limit
               }
           }
 

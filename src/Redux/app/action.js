@@ -1,4 +1,4 @@
-import { CHANGE_PAGE, GET_DATA_FAILURE, GET_DATA_REQUEST, GET_DATA_SUCCESS } from "./actionTypes"
+import { CHANGE_LIMIT, CHANGE_PAGE, GET_DATA_FAILURE, GET_DATA_REQUEST, GET_DATA_SUCCESS } from "./actionTypes"
 
 export const getDataRequest = () => ({
     type: GET_DATA_REQUEST,
@@ -28,6 +28,14 @@ export const getDataRequest = () => ({
             page
         }
   })
+}
+export const changeLimit= (limit)=>{
+    return({
+        type:CHANGE_LIMIT,
+        payload:{
+            limit
+        }
+    })
 }
   
 
