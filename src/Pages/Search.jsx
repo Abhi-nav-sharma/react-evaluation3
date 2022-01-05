@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 import {useEffect} from 'react'
-import { getData } from "../Redux/app/action";
+import { getData, pageChange } from "../Redux/app/action";
 import { useDispatch, useSelector } from "react-redux";
 const Card= ({name,full_name,html_url,language,owner})=>{
     return <div style={{
@@ -10,7 +10,8 @@ const Card= ({name,full_name,html_url,language,owner})=>{
       }}>
         <div>
         <div>Repository Name: {name}</div>
-        <div>Owner URL: {html_url}</div>
+        <div>Repository URL: {html_url}</div>
+        <div>Owner ID: {owner.login}</div>
         <div>Languages: {language}</div>
       </div>
     </div>
@@ -38,14 +39,17 @@ export default function Search(){
     const perPage= useSelector((state)=>state.app.perPage)
     const location = useLocation();
     const dispatch= useDispatch()
-    console.log(totalPages,pageNo)
     useEffect(()=>{
         const q= new URLSearchParams(location.search)
         const query= q.get('q')
-        dispatch(getData(query,5,1))
-    },[])
+        dispatch(getData(query,perPage,pageNo))
+    },[pageNo])
     const handlePageChange = (value) => {
-       
+        console.log(value)
+        dispatch(pageChange(value))
+        const q= new URLSearchParams(location.search)
+        const query= q.get('q')
+        dispatch(getData(query,perPage,pageNo))
       };
     return(
         <div>
@@ -60,6 +64,7 @@ export default function Search(){
               name={item.name}
               html_url={item.html_url}
               language={item.language}
+              owner={item.owner}
             />
           ))}
           <Pagination

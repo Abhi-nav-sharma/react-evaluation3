@@ -1,4 +1,4 @@
-import { GET_DATA_FAILURE, GET_DATA_REQUEST, GET_DATA_SUCCESS } from "./actionTypes";
+import { CHANGE_PAGE, GET_DATA_FAILURE, GET_DATA_REQUEST, GET_DATA_SUCCESS } from "./actionTypes";
 
 const initState = {
     data: [],
@@ -26,6 +26,13 @@ const initState = {
                 ...state,isLoading:false,isError:true
             }
           }
+
+          case CHANGE_PAGE:{
+              return{
+                  ...state,pageNo:action.payload.page
+              }
+          }
+
           default:{
               return{
                   ...state
