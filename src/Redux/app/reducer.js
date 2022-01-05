@@ -4,10 +4,11 @@ const initState = {
     data: [],
     isLoading: true,
     isError: false,
-    totalPages=0,
-    perPage=5,
-    pageNo=1
+    totalPages:0,
+    perPage:5,
+    pageNo:1
   };
+  
   export default function reducer(state = initState, action) {
       switch(action.type){
           case GET_DATA_REQUEST:{
@@ -17,7 +18,7 @@ const initState = {
           }
           case GET_DATA_SUCCESS:{
               return{
-                  ...state,data:action.payload.data,isLoading:false,isError:false,totalPages:Math.ceil(action.payload.total_count/state.perPage)
+                  ...state,data:action.payload.items,isLoading:false,isError:false,totalPages:Math.ceil(action.payload.total_count/state.perPage)
               }
           }
           case GET_DATA_FAILURE:{
@@ -27,7 +28,7 @@ const initState = {
           }
           default:{
               return{
-                  state
+                  ...state
               }
           }
       }

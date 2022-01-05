@@ -20,3 +20,20 @@ export const getDataRequest = () => ({
       isError: true
     }
   });
+
+  export const getData= (query,perPage=5,page=1) =>(dispatch) =>{
+      const requestAction= getDataRequest()
+      dispatch(requestAction)
+      return (fetch(`https://api.github.com/search/repositories?q=${query}&page=${page}&per_page=${perPage}`))
+      .then((res) => res.json())
+      .then((res)=>{
+          console.log(res)
+          const successAction = getDataSuccess(res)
+          dispatch(successAction);
+      })
+      .catch((res) => {
+          console.log(res)
+        const failureAction = getDataFailure()
+        dispatch(failureAction);
+      });
+  }
