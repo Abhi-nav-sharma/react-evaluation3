@@ -15,19 +15,38 @@ const Card= ({name,full_name,html_url,language,owner})=>{
       </div>
     </div>
 }
+const Pagination = ({ totalPages, currentPage, onClickCallback }) => {
+    const pages = new Array(totalPages).fill(0).map((a, i) =>
+      i + 1 === currentPage ? (
+        <button disabled style={{ background: "blue" }} key={i}>
+          {i + 1}
+        </button>
+      ) : (
+        <button onClick={() => onClickCallback(i + 1)} key={i}>
+          {i + 1}
+        </button>
+      )
+    );
+    return <div style={{ display: "flex", gap: "1rem", flexWrap:'wrap' }}>{pages}</div>;
+  };
 export default function Search(){
     const data= useSelector((state)=>state.app.data)
     const isLoading= useSelector((state)=>state.app.isLoading)
     const isError= useSelector((state)=>state.app.isError)
+    const pageNo= useSelector((state)=>state.app.pageNo)
+    const totalPages= useSelector((state)=>state.app.totalPages)
+    const perPage= useSelector((state)=>state.app.perPage)
     const location = useLocation();
     const dispatch= useDispatch()
-    console.log(data)
-    console.log(isError)
+    console.log(totalPages,pageNo)
     useEffect(()=>{
         const q= new URLSearchParams(location.search)
         const query= q.get('q')
         dispatch(getData(query,5,1))
     },[])
+    const handlePageChange = (value) => {
+       
+      };
     return(
         <div>
             {isLoading ? (
@@ -43,6 +62,11 @@ export default function Search(){
               language={item.language}
             />
           ))}
+          <Pagination
+            currentPage={pageNo}
+            onClickCallback={handlePageChange}
+            totalPages={totalPages}
+          />
           </>
       )}
         </div>
