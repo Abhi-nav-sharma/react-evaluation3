@@ -13,7 +13,7 @@ export default function Routes(){
             <Route exact path='/login'>
                 <Login/>
             </Route>
-            <Route exact path='/search'>
+            <Route path='/search'>
                 <Search/>
             </Route>
         </Switch>
